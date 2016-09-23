@@ -152,10 +152,4 @@ public class AccountTest {
 		assertFalse(her.getFriends().contains(me.getUserName()));
 	}
 
-	@Test
-	public void receivingFriendRequestFromNullAccount() {
-		Account nullAccount = null;
-		me.requestFriendship(nullAccount);
-	}
-
 }

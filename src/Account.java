@@ -1,3 +1,4 @@
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,6 +20,12 @@ public class Account {
 	// AutoAccept friendships switch
 	private boolean autoAccept = false;
 
+	// List of members who blocked this Account Owner
+	private Collection<String> blockedBy = new HashSet<String>();
+
+	// List of members who blocked this Account Owner
+	private Collection<String> blockedUsers = new HashSet<String>();
+	
 	public Account(String userName) {
 		this.userName = userName;
 	}
@@ -78,9 +85,9 @@ public class Account {
 		toAccount.incomingRequests.remove(this.getUserName());
 	}
 
-	// works as a switch to enable auto-accept friend requests
+	// enable auto-accept friend requests
 	public void autoAcceptFriendships() {
-		autoAccept = !autoAccept;
+		autoAccept = true;
 	}
 
 	// an incoming cancel friendship request to this account owner from another
@@ -88,6 +95,35 @@ public class Account {
 	public void cancelFriendship(Account fromAccount) {
 		this.friends.remove(fromAccount.getUserName());
 		fromAccount.friends.remove(this.userName);
+	}
+
+	// disable auto-accept friend requests
+	public void cancelAutoAcceptFriendships() {
+		autoAccept = false;
+
+	}
+
+	// returns the list of users who blocked this account owner
+	public Collection<String> getBlockedBy() {
+		return blockedBy;
+	}
+
+	// add member to the list of users who blocked this account owner
+	public void addBlockedBy(String userName) {
+		this.blockedBy.add(userName);
+	}
+
+	// remove member from the list of users who blocked this account owner
+	public void removeBlockedBy(String userName) {
+		this.blockedBy.remove(userName);
+	}
+
+	public Collection<String> getBlockedUsers() {
+		return blockedUsers;
+	}
+
+	public void addBlockedUser(String blockedUser) {
+		this.blockedUsers.add(blockedUser);
 	}
 
 }
